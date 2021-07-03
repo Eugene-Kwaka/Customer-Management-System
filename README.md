@@ -8,12 +8,12 @@ The system works to store information on products, customers and the orders that
 
 ![Customer-Order image 2021-07-03 172919](https://user-images.githubusercontent.com/44529236/124358149-9feee180-dc27-11eb-8b2a-4495bc1a4680.png)
 
-In the Dashboard page contains:
-•	Total orders done
-•	Newly recorded orders
-•	All the writer’s created by the admin
-•	All the orders Pending, Out for Delivery and Delivered.
-•	Search & Filter functionality based on- customer, product, category, status and dates.
+
+-	Total orders done
+-	Newly recorded orders
+-	All the writer’s created by the admin
+-	All the orders Pending, Out for Delivery and Delivered.
+-	Search & Filter functionality based on- customer, product, category, status and dates.
  
  
  
