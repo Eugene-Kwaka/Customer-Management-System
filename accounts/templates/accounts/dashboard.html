@@ -1,0 +1,114 @@
+{% extends 'accounts/main.html' %}
+
+{% load bootstrap4 %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+{% include 'accounts/status.html' %}
+
+<br>
+<br>
+
+<!-- This is the Filter & Search Form in the customer's profile page -->
+<div class="row">
+    <div class="col">
+        <div class="card card-body ml-3 mr-3">
+            <form method="GET" action="" class="form-inline">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-auto">
+                        {{ myFilter.form.customer.label_tag }}
+                        {% render_field myFilter.form.customer class="form-control" %}
+                    </div>
+                    <div class="col-auto">
+                        {{ myFilter.form.product.label_tag }}
+                        {% render_field myFilter.form.product class="form-control" %}
+                    </div>
+                    <div class="col-auto">
+                        {{ myFilter.form.category.label_tag }}
+                        {% render_field myFilter.form.category class="form-control" %}
+                    </div>
+                    <div class="col-auto">
+                        {{ myFilter.form.status.label_tag }}
+                        {% render_field myFilter.form.status class="form-control" %}
+                    </div>
+                    <div class="col-auto">
+                        {{ myFilter.form.date_created.label_tag }}
+                        {% render_field myFilter.form.date_created class="form-control" %}
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-secondary">SEARCH</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+</div>
+
+</div>
+
+
+<br>
+
+<div class="row">
+    <div class="col-md-5 mb-3 ">
+        <h5>CUSTOMERS: {{total_customers}} </h5>
+        <br>
+        <div class="card card-body ml-3 mr-3">
+            <a class="btn btn-primary btn-sm btn-block " href="{% url 'CreateCustomer' %}">Create a Customer</a>
+            <table class="table table-sm">
+                <tr>
+                    <th></th>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                </tr>
+
+                {% for customer in customers %}
+                <tr>
+                    <td><a href="{% url 'customers' customer.id %}" class="btn btn-primary">View</a></td>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.phone }}</td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+
+
+    <div class="col-md-7 mb-3">
+        <h5>LAST 5 ORDERS:</h5>
+        <br>
+        <div class="card card-body ml-3 mr-3">
+            <table class="table table-sm">
+                <tr>
+                    <th>Customer</th>
+                    <th>Product</th>
+                    <th>Date Ordered</th>
+                    <th>Status</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                </tr>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.customer }}</td>
+                    <td>{{ order.product }}</td>
+                    <td>{{ order.date_created}}</td>
+                    <td>{{ order.status }}</td>
+                    <td><a href="{% url 'UpdateOrder' order.id %}" class="btn btn-info">Update</a></td>
+                    <td><a href="{% url 'DeleteOrder' order.id %}" class="btn btn-danger">Remove</a> </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<br>
+{% endblock %}

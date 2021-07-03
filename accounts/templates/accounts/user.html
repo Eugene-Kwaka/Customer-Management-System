@@ -1,0 +1,67 @@
+{% extends 'accounts/main.html' %}
+{% load bootstrap4 %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+{% include 'accounts/status.html' %}
+
+<br>
+<div class="card card-body ml-3 mr-3">
+	<form method="GET" action="" class="form-inline">
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-auto">
+				{{ myFilter.form.product.label_tag }}
+				{% render_field myFilter.form.product class="form-control" %}
+			</div>
+			<br>
+			<div class="col-auto">
+				{{ myFilter.form.category.label_tag }}
+				{% render_field myFilter.form.category class="form-control" %}
+			</div>
+			<br>
+			<div class="col-auto">
+				{{ myFilter.form.status.label_tag }}
+				{% render_field myFilter.form.status class="form-control" %}
+			</div>
+			<br>
+			<div class="col-auto">
+				{{ myFilter.form.date_created.label_tag }}
+				{% render_field myFilter.form.date_created class="form-control" %}
+			</div>
+			<div>
+				<button type="submit" class="btn btn-secondary">SEARCH</button>
+			</div>
+		</div>
+
+	</form>
+
+</div>
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body ml-3 mr-3">
+			<table class="table table-sm">
+				<tr>
+					<th>Product</th>
+					<th>Category</th>
+					<th>Date Ordered</th>
+					<th>Status</th>
+				</tr>
+				{% for order in orders %}
+				<tr>
+					<td>{{ order.product }}</td>
+					<td>{{ order.category }}</td>
+					<td>{{ order.date_created }}</td>
+					<td>{{ order.status }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
