@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django_filters',
     'widget_tweaks',
     'bootstrap4',
+
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -149,3 +151,17 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SITE_ID = 1
+
+
+# AWS S3 BUCKETS CONFIGURATION
+AWS_KEY_ID='AKIA5SOWX4R7SK62KT3S'
+AWS_SECRET_ACCESS_KEY='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'
+AWS_STORAGE_BUCKET_NAME='eugenekwakacmw-bucket'
+
+AWS_S3_FILE_OVERWRITE=False
+AWS_DEFAULT_ACL=None
+DEFAULT_FILE_STORAGE='storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_ADDRESSING_STYLE = 'virtual'
+AWS_S3_SIGNATURE_VERSION ='s3v4'
+AWS_S3_REGION_NAME = 'us-east-2'
+AWS_QUERYSTRING_AUTH = False
