@@ -1,4 +1,4 @@
-.env
+
 excess.txt
 # Created by https://www.toptal.com/developers/gitignore/api/python,django,intellij,pycharm
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,django,intellij,pycharm
@@ -119,7 +119,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+
 .venv
 env/
 venv/
