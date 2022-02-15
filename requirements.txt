@@ -11,6 +11,7 @@ Django==3.2
 django-bootstrap4==3.0.1
 django-extensions==3.1.5
 django-filter==2.3.0
+django-heroku==0.3.1
 django-on-heroku==1.1.2
 django-storages==1.12.3
 django-widget-tweaks==1.4.8
