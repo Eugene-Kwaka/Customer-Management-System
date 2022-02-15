@@ -197,5 +197,5 @@ AWS_S3_REGION_NAME=config('AWS_S3_REGION_NAME')
 
 
 #HEROKU SETTINGS
-django_on_heroku.settings(locals())
+#django_on_heroku.settings(locals())
 #del DATABASES['default']['OPTIONS']['sslmode']
