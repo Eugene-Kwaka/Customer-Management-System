@@ -1,5 +1,6 @@
 {% extends 'accounts/main.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
 <br>
 <div class="row">
@@ -9,7 +10,7 @@
                 {% csrf_token %}
                 {{ formset.management_form }}
                 {% for form in formset %}
-                {{ form }}
+                {% crispy form %}
                 <hr>
                 {% endfor %}
                 <input class="btn btn-primary" type="submit" name="Submit">
