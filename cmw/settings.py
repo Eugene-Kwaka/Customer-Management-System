@@ -12,6 +12,8 @@
 
 import os
 from decouple import config
+from dotenv import load_dotenv, find_dotenv
+import django_on_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,6 +45,8 @@ INSTALLED_APPS = [
     'django_filters',
     'widget_tweaks',
     'bootstrap4',
+
+    'django_extensions',
 
     'storages',
 ]
@@ -96,6 +100,8 @@ DATABASES = {
     }
 }
 
+load_dotenv(find_dotenv())
+
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
@@ -138,15 +144,18 @@ USE_TZ = True
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+# MEDIA_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
 
 # SMTP Configuration
 EMAIL_BACKEND = config('EMAIL_BACKEND')
@@ -165,15 +174,30 @@ SITE_ID = 1
 AWS_ACCESS_KEY_ID=config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY=config('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME=config('AWS_STORAGE_BUCKET_NAME')
-
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_DEFAULT_ACL=None #This works to ensure that the images to be publicly viewable
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400'
+}
+AWS_LOCATION = 'static'
+AWS_QUERYSTRING_AUTH = False
+AWS_HEADERS = {
+    'Access-Control-Allow-Origin'
+}
+DEFAULT_FILE_STORAGE= 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE= 'storages.backends.s3boto3.S3BotoStorage'
+STATIC_URL= f'https://{AWS_S3_CUSTOM_DOMAIN}/static/' 
+MEDIA_URL= f'https://{AWS_S3_CUSTOM_DOMAIN}/media/' 
 
 # AWS_S3_FILE_OVERWRITE=config('AWS_S3_FILE_OVERWRITE')
 # AWS_DEFAULT_ACL=config('AWS_DEFAULT_ACL')
 AWS_S3_FILE_OVERWRITE=False
-AWS_DEFAULT_ACL='public-read' #This works to ensure that the images to be publicly viewable
-DEFAULT_FILE_STORAGE=config('DEFAULT_FILE_STORAGE') 
-STATICFILES_STORAGE=config('STATICFILES_STORAGE')
 AWS_S3_ADDRESSING_STYLE=config('AWS_S3_ADDRESSING_STYLE')
 AWS_S3_SIGNATURE_VERSION=config('AWS_S3_SIGNATURE_VERSION')
 AWS_S3_REGION_NAME=config('AWS_S3_REGION_NAME')
 
+
+
+#HEROKU SETTINGS
+django_on_heroku.settings(locals())
+#del DATABASES['default']['OPTIONS']['sslmode']
